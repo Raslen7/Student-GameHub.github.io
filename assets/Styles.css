@@ -131,14 +131,6 @@ body {
 .nav__close {
   display: none;
 }
-nav_profile {
-  position: relative;
-}
-nav_profile .nav__profile-icon {
-  font-size: 20px;
-  cursor: pointer;
-  color: #333;
-}
 
 /* =========================
    MAIN
@@ -543,43 +535,4 @@ body.dark-theme .change-theme {
     margin: 60px 0 40px 0;
     color: #F3F4F4;
     text-shadow: 0 0 10px rgba(120,120,255,0.7);
-}
-
-
-/* =========================
-al profile ml fog 3al imiin ========================= */
-.profile__info {
-  display: flex;
-  align-items: center;
-  gap: 12px; /* space between name and button */
-}
-
-.profile__logout {
-  background: #0b2230;
-  color: #ffffff;
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-size: 13px;
-  border: none;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-
-
-.profile__logout {
-  background: transparent;
-  color: #CD1818;
-  border: 2px solid #CD1818;
-}
-
-.profile__logout:hover {
-  background: rgba(205, 24, 24, 0.15);
-  color: #ff4d4d;
-  border-color: #ff4d4d;
-}
-h3 {
-  font-size: 18px;
-  color: #bec4d3;
-  margin: 0;
 }
