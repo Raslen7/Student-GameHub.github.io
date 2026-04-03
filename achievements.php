@@ -72,22 +72,19 @@ $sql = "SELECT username FROM users WHERE id='$user_id'";
 $result = mysqli_query($conn, $sql);
 $user = mysqli_fetch_assoc($result);
 ?>
-<form method="POST">
-
-            <div class="profile__info">
-              <h3 class="profile__name"><?php echo $user['username']; ?></h3>
-              <button class="profile__logout" name="logout" id="logout-btn">Logout</button>
-              <?php
-              if (isset($_POST['logout'])) {
-                session_destroy();
-                header("Location: login.php");
-                exit();
-              }
-              ?>
-            </div>
-            <i class="uil uil-angle-down nav__profile-icon" id="profile-toggle"></i>
-          </div>
-          <form>
+      <form method="POST">
+              <div class="profile__info">
+                <h3 class="profile__name"><?php echo $user['username']; ?></h3>
+                <button class="profile__logout" name="logout" id="logout-btn"><b>Log out</b></button>
+                <?php
+                if (isset($_POST['logout'])) {
+                  session_destroy();
+                  header("Location: login.php");
+                  exit();
+                }
+                ?>
+              </div>
+            </form>
         </div>
       </nav>
     </header>
