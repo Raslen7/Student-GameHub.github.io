@@ -42,7 +42,7 @@ if (isset($_POST['submit_post'])) {
   exit();
 }
 
-// Handle like toggle
+//button el likee
 if (isset($_POST['toggle_like'])) {
   $post_id = (int)$_POST['post_id'];
   $check = mysqli_query($conn, "SELECT id FROM likes WHERE post_id=$post_id AND user_id=$user_id");
