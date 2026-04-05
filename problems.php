@@ -24,28 +24,42 @@ if (isset($_POST['submit_post'])) {
   if (!empty($_FILES['image']['name'])) {
     $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
     $allowed = ['jpg','jpeg','png','gif','webp'];
-    if (in_array(strtolower($ext), $allowed)) {
+    if (in_array(strtolower($ext), $allowed)) { /* in array techecki haja fi haja */
       $filename = 'uploads/' . uniqid('prob_', true) . '.' . $ext;
-      if (!is_dir('uploads')) mkdir('uploads', 0755, true);
+      if (!is_dir('uploads')) mkdir('uploads', 0755, true); /* ldossierr li n5abii fihh tswwrr*/
       move_uploaded_file($_FILES['image']['tmp_name'], $filename);
       $image_path = $filename;
     }
   }
 
   if (!empty($body)) {
-    $body_safe = mysqli_real_escape_string($conn, $body);
-    $img_safe  = $image_path ? mysqli_real_escape_string($conn, $image_path) : null;
-    $img_sql   = $img_safe ? "'$img_safe'" : "NULL";
-    mysqli_query($conn, "INSERT INTO posts (user_id, type, body, image) VALUES ('$user_id', 'problem', '$body_safe', $img_sql)");
-  }
-  header("Location: problems.php");
-  exit();
+
+    $body_safe = mysqli_real_escape_string($conn, $body); /*  kn msgg fihh ''' ynjm yamli mchakel li naml el isnert lele sql */
+
+    if (!empty($image_path)) {
+        $img_safe = mysqli_real_escape_string($conn, $image_path);
+    } else {
+        $img_safe = null;
+    }
+
+    if ($img_safe) {
+        $img_sql = "'$img_safe'";
+    } else {
+        $img_sql = "NULL";
+    }
+
+    mysqli_query($conn, "INSERT INTO posts (user_id, type, body, image)  VALUES ('$user_id', 'problem', '$body_safe', $img_sql)");
 }
 
+header("Location: problems.php");
+exit();
+}
 //button el likee
 if (isset($_POST['toggle_like'])) {
   $post_id = (int)$_POST['post_id'];
+
   $check = mysqli_query($conn, "SELECT id FROM likes WHERE post_id=$post_id AND user_id=$user_id");
+
   if (mysqli_num_rows($check) > 0) {
     mysqli_query($conn, "DELETE FROM likes WHERE post_id=$post_id AND user_id=$user_id");
   } else {
@@ -67,7 +81,7 @@ if (isset($_POST['submit_comment'])) {
   exit();
 }
 
-// Handle delete post
+// 3ndk el 7a9 tfs5 lpsot ttaak 
 if (isset($_POST['delete_post'])) {
   $post_id = (int)$_POST['post_id'];
   $res = mysqli_query($conn, "SELECT user_id, image FROM posts WHERE id=$post_id AND type='problem'");
@@ -80,19 +94,18 @@ if (isset($_POST['delete_post'])) {
   exit();
 }
 
-// Fetch current user
+
 $res  = mysqli_query($conn, "SELECT username FROM users WHERE id=$user_id");
 $user = mysqli_fetch_assoc($res);
 
-// Fetch all problem posts
+// requet nlam biha les postt taa lproblems b7ass el date taa creation
 $posts_res = mysqli_query($conn, "
   SELECT p.*, u.username,
     (SELECT COUNT(*) FROM likes l WHERE l.post_id = p.id) AS like_count,
     (SELECT COUNT(*) FROM likes l WHERE l.post_id = p.id AND l.user_id = $user_id) AS user_liked,
     (SELECT COUNT(*) FROM comments c WHERE c.post_id = p.id) AS comment_count
-  FROM posts p
-  JOIN users u ON u.id = p.user_id
-  WHERE p.type = 'problem'
+  FROM posts p , users u 
+  WHERE p.type = 'problem' and u.id = p.user_id
   ORDER BY p.created_at DESC
 ");
 ?>
@@ -102,180 +115,10 @@ $posts_res = mysqli_query($conn, "
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Problems – Student GameHub</title>
-  <link rel="stylesheet" href="assets/Styles.css"/>
+  <link rel="stylesheet" href="assets/styles.css"/>
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"/>
   <script defer src="assets/scripts.js"></script>
-  <style>
-    /* ── Feed Layout ── */
-    .feed-wrapper {
-      max-width: 720px;
-      margin: 100px auto 60px;
-      padding: 0 20px;
-    }
-    .feed-title {
-      font-size: 28px;
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 6px;
-    }
-    .feed-title span { color: #ff6b6b; }
-    .feed-subtitle { color: #4a6070; font-size: 14px; margin-bottom: 28px; }
-
-    /* ── Post Composer ── */
-    .composer {
-      background: #0b2230;
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 18px;
-      padding: 22px 24px;
-      margin-bottom: 28px;
-    }
-    .composer h3 { color: #fff; font-size: 16px; margin-bottom: 14px; display:flex; align-items:center; gap:8px; }
-    .composer h3 i { color: #ff6b6b; font-size: 20px; }
-    .composer textarea {
-      width: 100%; background: #061e29;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px; color: #f3f4f4;
-      font-size: 14px; padding: 14px;
-      resize: vertical; min-height: 90px;
-      outline: none; font-family: inherit;
-      transition: border-color 0.2s; box-sizing: border-box;
-    }
-    .composer textarea:focus { border-color: #ff6b6b; }
-    .composer textarea::placeholder { color: #4a6070; }
-    .composer-actions {
-      display: flex; align-items: center;
-      justify-content: space-between; margin-top: 14px; gap: 12px;
-    }
-    .img-label {
-      display: flex; align-items: center; gap: 8px;
-      background: #061e29; border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 10px; padding: 10px 16px;
-      color: #b6c2cf; font-size: 13px; cursor: pointer;
-      transition: border-color 0.2s;
-    }
-    .img-label:hover { border-color: #ff6b6b; color: #ff6b6b; }
-    .img-label i { font-size: 18px; }
-    .img-label input { display: none; }
-    #img-name { color: #4a6070; font-size: 12px; margin-top: 6px; }
-    .post-btn {
-      background: #ff6b6b; color: #fff; border: none;
-      border-radius: 10px; padding: 10px 22px;
-      font-size: 14px; font-weight: 700; cursor: pointer;
-      transition: background 0.2s, transform 0.1s; font-family: inherit;
-    }
-    .post-btn:hover { background: #e05555; }
-    .post-btn:active { transform: scale(0.97); }
-
-    /* ── Post Card ── */
-    .post-card {
-      background: #0b2230;
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 18px; margin-bottom: 22px;
-      overflow: hidden; transition: border-color 0.2s;
-    }
-    .post-card:hover { border-color: rgba(255,107,107,0.25); }
-    .post-header {
-      display: flex; align-items: center;
-      justify-content: space-between;
-      padding: 18px 20px 0;
-    }
-    .post-author {
-      display: flex; align-items: center; gap: 12px;
-    }
-    .avatar {
-      width: 40px; height: 40px; border-radius: 50%;
-      background: linear-gradient(135deg, #ff6b6b, #ff8e53);
-      display: flex; align-items: center; justify-content: center;
-      color: #fff; font-size: 16px; font-weight: 700;
-      text-transform: uppercase; flex-shrink: 0;
-    }
-    .post-meta { display: flex; flex-direction: column; }
-    .post-username { color: #fff; font-weight: 700; font-size: 15px; }
-    .post-time { color: #4a6070; font-size: 12px; }
-    .delete-btn {
-      background: none; border: none; color: #4a6070;
-      cursor: pointer; font-size: 18px; padding: 4px;
-      transition: color 0.2s; line-height: 1;
-    }
-    .delete-btn:hover { color: #ff6b6b; }
-    .post-body {
-      padding: 14px 20px; color: #c8d0d8;
-      font-size: 15px; line-height: 1.65;
-    }
-    .post-img {
-      width: 100%; max-height: 420px; object-fit: cover;
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
-    .post-actions {
-      display: flex; align-items: center; gap: 6px;
-      padding: 12px 20px;
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
-    .action-btn {
-      display: flex; align-items: center; gap: 6px;
-      background: none; border: none; color: #4a6070;
-      font-size: 14px; cursor: pointer; padding: 8px 14px;
-      border-radius: 8px; transition: all 0.2s; font-family: inherit;
-    }
-    .action-btn i { font-size: 18px; }
-    .action-btn:hover { background: rgba(255,255,255,0.05); color: #b6c2cf; }
-    .action-btn.liked { color: #ff6b6b; }
-    .action-btn.liked i { animation: pop 0.3s ease; }
-    @keyframes pop { 0%,100%{transform:scale(1)} 50%{transform:scale(1.3)} }
-
-    /* ── Comments ── */
-    .comments-section {
-      padding: 0 20px 18px;
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
-    .comments-section.hidden { display: none; }
-    .comment-list { margin-bottom: 14px; }
-    .comment-item {
-      display: flex; gap: 10px; margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px solid rgba(255,255,255,0.04);
-    }
-    .comment-item:first-child { border-top: none; margin-top: 8px; }
-    .comment-avatar {
-      width: 32px; height: 32px; border-radius: 50%;
-      background: linear-gradient(135deg, #3b49df, #6c63ff);
-      display: flex; align-items: center; justify-content: center;
-      color: #fff; font-size: 12px; font-weight: 700;
-      text-transform: uppercase; flex-shrink: 0;
-    }
-    .comment-content { flex: 1; }
-    .comment-user { color: #fff; font-size: 13px; font-weight: 700; }
-    .comment-body { color: #8899aa; font-size: 13px; line-height: 1.5; }
-    .comment-form {
-      display: flex; gap: 10px; align-items: flex-start; margin-top: 10px;
-    }
-    .comment-form input {
-      flex: 1; background: #061e29;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 10px; color: #f3f4f4;
-      font-size: 13px; padding: 10px 14px;
-      outline: none; font-family: inherit;
-      transition: border-color 0.2s;
-    }
-    .comment-form input:focus { border-color: #3b49df; }
-    .comment-form input::placeholder { color: #4a6070; }
-    .comment-submit {
-      background: #3b49df; color: #fff; border: none;
-      border-radius: 10px; padding: 10px 16px;
-      cursor: pointer; font-size: 13px; font-weight: 700;
-      transition: background 0.2s; font-family: inherit;
-    }
-    .comment-submit:hover { background: #2d39c0; }
-
-    /* ── Empty State ── */
-    .empty-state {
-      text-align: center; padding: 60px 20px;
-      color: #4a6070; border: 2px dashed rgba(255,255,255,0.06);
-      border-radius: 18px;
-    }
-    .empty-state i { font-size: 48px; display: block; margin-bottom: 12px; }
-    .empty-state p { font-size: 15px; }
-  </style>
+  
 </head>
 <body>
 <header class="header" id="header">
