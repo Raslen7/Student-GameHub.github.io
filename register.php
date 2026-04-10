@@ -164,7 +164,7 @@ if (isset($_POST['submit'])) {
           <!--bchhh tkonn lblasaa taa luser hathii -->
           <div class="nav__toggle" id="nav-toggle">
             <!--bchhh tkonn lblasaa taa luser hathii -->
-            <i class="uil uil-apps"></i>
+             <i class="uil uil-apps"></i>
           </div>
         </div>
       </nav>
@@ -175,8 +175,8 @@ if (isset($_POST['submit'])) {
   <div class="auth-card">
  
     <div class="auth-logo">🎮</div>
-    <h2 class="auth-title">Welcome back!</h2>
-    <p class="auth-subtitle">Don't have an account? <a href="login.php">login here</a></p>
+    <h2 class="auth-title">klam hloww</h2>
+    <p class="auth-subtitle">You have an account? <a href="login.php">login here</a></p>
         
   <!-- USERNAME -->
   <div class="field">

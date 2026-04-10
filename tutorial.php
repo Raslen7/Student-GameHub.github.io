@@ -77,7 +77,11 @@ $user = mysqli_fetch_assoc($result);
       </nav>
     </header>
     <!-- main-->
+     
     <main>
+        <video autoplay loop muted playsinline>
+  <source src="tuto.mp4" type="video/mp4">
+</video>
 <h2 class="tuto-title">
     You Should have first <span style="color: #A0C878;">Torrent</span> and  <span style="color: #982598;">WinRAR</span>
 </h2>
@@ -119,17 +123,17 @@ $user = mysqli_fetch_assoc($result);
             </div>
 
             <div class="img">
-                <img src="img/rar-archive_57.png" alt="winrar">
+                 <img src="img/rar-archive_57.png" alt="winrar">
             </div>
         </div>
     </div>
 </section>
-
+  
 
 
 
 <section class="stept">
-  <div class="tuto-title" >      u may have to shut down temporary windows defender or any antivirus software to avoid any issues during the installation process
+  <div class="stept-text" >      u may have to shut down temporary windows defender or any antivirus software to avoid any issues during the installation process
     <br>   <br>  Sometimes, Windows Defender or antivirus software may detect extracted files as suspicious.
 This usually happens because : <br> <br> 
  </div>
@@ -189,6 +193,7 @@ This usually happens because : <br> <br>
             </div>
         </div>
     </div>
+  
 </section>
 
 

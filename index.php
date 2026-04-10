@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student GameHub</title>
     <link rel="stylesheet" href="assets/Styles.css" />
+    <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
     <script defer src="assets/scripts.js"></script>
      
@@ -35,7 +36,7 @@
          
             <li class="nav__item">
               <a href="https://raslen.me/" class="nav__link">
-               Contact-Me</a>
+                Contact-Me</a>
             </li>
           </ul>
           <i class="uil uil-times nav__close" id="nav-close"></i>

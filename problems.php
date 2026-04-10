@@ -139,7 +139,7 @@ $posts_res = mysqli_query($conn, "
         <form method="POST">
           <div class="profile__info">
             <h3 class="profile__name"><?php echo htmlspecialchars($user['username']); ?></h3>
-            <button class="profile__logout" name="logout"><b>Log out</b></button>
+            <button class="profile__logout" name="logout"><b>Log out</b> </button>
           </div>
         </form>
       </div>
@@ -150,21 +150,21 @@ $posts_res = mysqli_query($conn, "
 
 <main>
   <div class="feed-wrapper">
-    <h2 class="feed-title"><span>⚠️ Problems</span> & Help</h2>
+    <h2 class="pfeed-title"><span>⚠️ Problems</span> & Help</h2>
     <p class="feed-subtitle">Stuck on something? Share your issue and get help from the community.</p>
 
     <!-- Composer -->
     <div class="composer">
-      <h3><i class="uil uil-exclamation-triangle"></i> Share a Problem</h3>
+      <h3><i class="em em-interrobang" aria-role="presentation" aria-label="EXCLAMATION QUESTION MARK"></i></i> Share a Problem</h3>
       <form method="POST" enctype="multipart/form-data">
-        <textarea name="body" placeholder="Describe your problem... What game? What issue?" required></textarea>
+        <textarea id="pcomposer-textarea" name="body" placeholder="Describe your problem... What game? What issue?" required></textarea>
         <div id="img-name"></div>
         <div class="composer-actions">
-          <label class="img-label">
+          <label class="pimg-label">
             <i class="uil uil-image"></i> Add Image
             <input type="file" name="image" accept="image/*" id="img-input">
           </label>
-          <button type="submit" name="submit_post" class="post-btn">Post Problem</button>
+          <button type="submit" name="submit_post" class="ppost-btn">Post Problem</button>
         </div>
       </form>
     </div>

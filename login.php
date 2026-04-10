@@ -10,7 +10,6 @@ if (isset($_POST['submit'])) {
     $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
     $result = mysqli_query($conn, $sql);
 
-    // CHECK if user exists
     if ($result && mysqli_num_rows($result) > 0) {
 
         $user = mysqli_fetch_assoc($result);
@@ -85,7 +84,7 @@ if (isset($_POST['submit'])) {
       display: flex;
       align-items: center;
       gap: 8px;
-    }
+     }
     .error-box i { font-size: 16px; }
     .field       { display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
     .field label { font-size:13px; font-weight:600; color:#b6c2cf; }

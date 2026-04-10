@@ -26,7 +26,7 @@ CREATE TABLE posts (
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- ── Likes ─────────────────────────────────────
+-- ── Likes ──────────────────────────────────── 
 CREATE TABLE likes (
   id      INT AUTO_INCREMENT PRIMARY KEY,
   post_id INT NOT NULL,
