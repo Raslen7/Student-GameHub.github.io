@@ -31,23 +31,19 @@ if (isset($_POST['submit_post'])) {
       $image_path = $filename;
     }
   }
-
+/*  kn msgg fihh ''' ynjm yamli mchakel li naml el isnert lele sql */
   if (!empty($body)) {
-
-    $body_safe = mysqli_real_escape_string($conn, $body); /*  kn msgg fihh ''' ynjm yamli mchakel li naml el isnert lele sql */
-
+    $body_safe = mysqli_real_escape_string($conn, $body); 
     if (!empty($image_path)) {
         $img_safe = mysqli_real_escape_string($conn, $image_path);
     } else {
         $img_safe = null;
     }
-
     if ($img_safe) {
         $img_sql = "'$img_safe'";
     } else {
         $img_sql = "NULL";
     }
-
     mysqli_query($conn, "INSERT INTO posts (user_id, type, body, image)  VALUES ('$user_id', 'problem', '$body_safe', $img_sql)");
 }
 

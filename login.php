@@ -51,86 +51,6 @@ if (isset($_POST['submit'])) {
 
     <script defer src="assets/scripts.js"></script>
      <title>Login – Student GameHub</title>
-  <style>
-    .auth-main {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 100px 20px 60px;
-    }
-    .auth-card {
-      background: #0b2230;
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 20px;
-      padding: 44px 40px;
-      width: 100%;
-      max-width: 420px;
-    }
-    .auth-logo     { text-align:center; font-size:44px; margin-bottom:6px; }
-    .auth-title    { text-align:center; font-size:22px; font-weight:700; color:#fff; margin-bottom:6px; }
-    .auth-subtitle { text-align:center; font-size:14px; color:#4a6070; margin-bottom:30px; }
-    .auth-subtitle a { color:#7aa2ff; text-decoration:none; }
-    .auth-subtitle a:hover { text-decoration:underline; }
- 
-    .error-box {
-      background: rgba(255,107,107,0.1);
-      border: 1px solid rgba(255,107,107,0.3);
-      border-radius: 10px;
-      padding: 12px 16px;
-      margin-bottom: 20px;
-      font-size: 13px;
-      color: #ff6b6b;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-     }
-    .error-box i { font-size: 16px; }
-    .field       { display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
-    .field label { font-size:13px; font-weight:600; color:#b6c2cf; }
-    .input-wrap   { position:relative; display:flex; align-items:center; }
-.input-wrap i {
-  position:absolute;
-  left:14px;
-  font-size:18px;
-  color:#4a6070;
-  pointer-events:none;
-}
-
-/* OVERRIDE for toggle */
-.toggle-pw {
-  right:14px;
-  left:auto; /* IMPORTANT */
-  pointer-events:auto; /* allow click */
-  cursor:pointer;
-}     .input-wrap input {
-      width:100%; background:#061e29;
-      border:1px solid rgba(255,255,255,0.1);
-      border-radius:10px; color:#F3F4F4;
-      font-size:14px; padding:12px 14px 12px 44px;
-      outline:none; transition:border-color 0.2s;
-      font-family:Arial,sans-serif;
-    }
-    .input-wrap input:focus      { border-color:#3b49df; }
-    .input-wrap input::placeholder { color:#4a6070; }
- 
-   
-    .toggle-pw:hover { color:#b6c2cf; }
-    .auth-submit {
-      width:100%; padding:14px; background:#3b49df;
-      color:#fff; border:none; border-radius:10px;
-      font-size:15px; font-weight:700; cursor:pointer;
-      transition:background 0.2s, transform 0.1s;
-      margin-top:6px; font-family:Arial,sans-serif;
-    }
-    .auth-submit:hover  { background:#2d39c0; }
-    .auth-submit:active { transform:scale(0.98); }
- 
-    .auth-divider { text-align:center; margin-top:22px; font-size:13px; color:#4a6070; }
-    .auth-divider a { color:#7aa2ff; text-decoration:none; font-weight:600; }
-    .auth-divider a:hover { text-decoration:underline; }
-    @media (max-width:500px) { .auth-card { padding:30px 20px; } }
-  </style>
      
   </head>
   <body>
@@ -229,6 +149,3 @@ if (isset($_POST['submit'])) {
    
   </body>
 </html>
-
-
-
