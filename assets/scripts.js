@@ -79,9 +79,34 @@ function setCategory(cat) {
 document.addEventListener('DOMContentLoaded', () => {
     renderCategories();
     loadgames();
-    lucide.createIcons();
     document.getElementById('add-game-form').addEventListener('submit', addNewGame);
 });
+
+
+
+    document.querySelectorAll('.toggle-pw').forEach(toggle => {
+        toggle.addEventListener('click', function () {
+            const input = document.getElementById(this.dataset.target);
+            const isText = input.type === 'text';
+            input.type = isText ? 'password' : 'text';
+            this.classList.toggle('uil-eye', isText);
+            this.classList.toggle('uil-eye-slash', !isText);
+        });
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
