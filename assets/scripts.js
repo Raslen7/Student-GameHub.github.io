@@ -13,6 +13,7 @@
  CATEGORIES = ["All Games", "Action", "RPG", "Strategy", "Indie", "Shooter", "Racing", "Horror"];
 let currentCategory = "All Games";
 
+
 // Function to render the category filter buttons
 function renderCategories() {
     const container = document.getElementById('category-container');
@@ -35,7 +36,6 @@ function loadgames() {
             filtered.push(GAMES[i]);
         }
     }
-    
     // Create a card for each game
     for (let i = 0; i < filtered.length; i++) {
         const game = filtered[i];
@@ -44,10 +44,9 @@ function loadgames() {
         const card = document.createElement('div');
         card.className = 'game-card group relative flex flex-col overflow-hidden rounded-xl bg-white/5 ring-1 ring-white/10 transition cursor-pointer';
         card.style.animationDelay = (i * 0.1) + 's';
-        card.onclick = function() { openModal(game.id); };
         
         // Add the card content using innerHTML
-        card.innerHTML = `
+        card.innerHTML = ` <a href="${game.download_link}" style="text-decoration: none;" download>
             <div class="relative aspect-[4/3] overflow-hidden">
                 <img src="${game.image}" class="h-full w-full object-cover transition duration-500">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
@@ -60,13 +59,12 @@ function loadgames() {
                 <h3 class="font-bold text-white group-hover:text-indigo-400 transition">${game.title}</h3>
                 <div class="mt-4 flex items-center justify-between border-t border-white/5 pt-4">
                     <div class="text-[10px] text-gray-400 ">Downloads: <span>${game.downloads}</span></div>
-            </div>
+            </div> </a>
         `;
         
         // Add the card to the grid
         grid.appendChild(card);
     }
-    
     // Refresh icons
     lucide.createIcons();
 }
@@ -74,54 +72,7 @@ function loadgames() {
 function setCategory(cat) {
     currentCategory = cat;
     renderCategories();
-    renderGames();
-}
-
-function openModal(id) {
-    const game = GAMES.find(g => g.id === id);
-    document.getElementById('modal-title').innerText = game.title;
-    document.getElementById('modal-genre').innerText = game.genre;
-    document.getElementById('modal-desc').innerText = game.desc;
-    document.getElementById('modal-img').src = game.image;
-    document.getElementById('game-modal').classList.remove('hidden');
-    document.body.classList.add('modal-active');
-    lucide.createIcons();
-}
-
-function closeModal() {
-    document.getElementById('game-modal').classList.add('hidden');
-    document.body.classList.remove('modal-active');
-}
-
-function openAddGameModal() {
-    document.getElementById('add-game-modal').classList.remove('hidden');
-    document.body.classList.add('modal-active');
-}
-
-function closeAddGameModal() {
-    document.getElementById('add-game-modal').classList.add('hidden');
-    document.body.classList.remove('modal-active');
-    document.getElementById('add-game-form').reset();
-}
-
-function addNewGame(event) {
-    event.preventDefault();
-    
-    const newGame = {
-        id: Math.max(...GAMES.map(g => g.id), 0) + 1,
-        title: document.getElementById('game-title').value,
-        genre: document.getElementById('game-genre').value,
-        rating: parseFloat(document.getElementById('game-rating').value),
-        downloads: document.getElementById('game-downloads').value,
-        size: document.getElementById('game-size').value,
-        image: document.getElementById('game-image').value,
-        desc: document.getElementById('game-desc').value
-    };
-    
-    GAMES.push(newGame);
-    closeAddGameModal();
     loadgames();
-    lucide.createIcons();
 }
 
 // Initial App Start
