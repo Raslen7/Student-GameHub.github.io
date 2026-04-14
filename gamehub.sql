@@ -11,7 +11,6 @@ CREATE TABLE users (
   username   VARCHAR(50)  NOT NULL UNIQUE,
   email      VARCHAR(100) NOT NULL UNIQUE,
   password   VARCHAR(255) NOT NULL,
-  avatar     CHAR(1)      NOT NULL DEFAULT 'U',
   created_at DATETIME     DEFAULT CURRENT_TIMESTAMP
 );
 
