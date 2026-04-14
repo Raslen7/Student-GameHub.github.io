@@ -154,21 +154,7 @@ if (isset($_POST['submit'])) {
 </form>
 </main>
  
-<script>
-  const toggles = document.querySelectorAll('.toggle-pw');
 
-  toggles.forEach(toggle => {
-    toggle.addEventListener('click', function () {
-      const input = document.getElementById(this.dataset.target);
-
-      const isText = input.type === 'text';
-      input.type = isText ? 'password' : 'text';
-
-      this.classList.toggle('uil-eye', isText);
-      this.classList.toggle('uil-eye-slash', !isText);
-    });
-  });
-</script>
      
 
    

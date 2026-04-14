@@ -134,16 +134,8 @@ if (isset($_POST['submit'])) {
   </div>
 </main>
  
-<script>
-  document.getElementById('toggle-pw').addEventListener('click', function () {
-    const input = document.getElementById(this.dataset.target);
-    const isText = input.type === 'text';
-    input.type = isText ? 'password' : 'text';
-    this.classList.toggle('uil-eye',       isText);
-    this.classList.toggle('uil-eye-slash', !isText);
-  });
-</script>
-     
+
+
      
 
    
